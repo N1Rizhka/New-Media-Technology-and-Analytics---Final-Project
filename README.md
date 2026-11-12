@@ -13,14 +13,9 @@
 | [`deliverables/Team5_Q15_appendix.pdf`](deliverables/Team5_Q15_appendix.pdf) | Ethics (§6) + AI use (§7) appendix |
 | [`deliverables/Team5_Q15_pitch.pptx`](deliverables/Team5_Q15_pitch.pptx) | 8-minute pitch slides |
 
-## Data (required to re-run the notebook)
+## Data
 
-Copy from the course project kit into `data/`:
-
-- `lb_order_lines.csv`
-- `lb_users.csv`
-
-See [`data/README.md`](data/README.md). Numbers in the report/slides match the verified run on the official course export.
+Official course CSVs live in [`data/`](data/) (`lb_order_lines.csv`, `lb_users.csv`, plus streams/comments/follows). The notebook, report, and slides were re-run on this export; key live metrics are also saved in `deliverables/metrics_from_data.json`.
 
 ## Rebuild PDF / PPT locally
 

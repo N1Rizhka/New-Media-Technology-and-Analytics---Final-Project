@@ -1,11 +1,9 @@
-# Lumen Beauty course dataset (required)
+# Lumen Beauty course dataset
 
-Place these two files from the NMTA project kit here:
+Official NMTA course project export (synthetic). Files used by the Q15 notebook:
 
-- `lb_order_lines.csv`
-- `lb_users.csv`
+- `lb_order_lines.csv` — required
+- `lb_users.csv` — required
+- `lb_streams.csv`, `lb_comments.csv`, `lb_follows.csv` — available; not required for Q15
 
-They live in the `data/` folder of the course project kit (see `project_data_dictionary.pdf`).
-The notebook looks for them in `./data/` first, then in the notebook’s working directory.
-
-Do **not** commit regenerated or approximate data for the graded submission — use the official course export only.
+Source: course project kit / repo upload. Do not replace with approximate regenerations for graded submission.
