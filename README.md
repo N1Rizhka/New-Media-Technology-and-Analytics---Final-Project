@@ -17,6 +17,10 @@
 
 Official course CSVs live in [`data/`](data/) (`lb_order_lines.csv`, `lb_users.csv`, plus streams/comments/follows). The notebook, report, and slides were re-run on this export; key live metrics are also saved in `deliverables/metrics_from_data.json`.
 
+## Figures
+
+EDA and finding charts used in the report and pitch live in [`figures/`](figures/) (basket size, buyers vs orders, category co-occurrence, serum opportunity, order vs history rules, slice lifts, scenario value, etc.). They are produced by the notebook on Restart & Run All.
+
 ## Rebuild PDF / PPT locally
 
 ```bash

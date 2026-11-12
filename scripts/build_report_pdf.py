@@ -100,7 +100,17 @@ def build_main(path):
     story.append(make_table(["Buyer type","Buyers","Orders","% of buyers","% of orders"],
         [["Light (1–2 orders)","301","366","46.5%","10.8%"],["Mid (3–5)","81","304","12.5%","8.9%"],["Heavy (6+)","265","2,731","41.0%","80.3%"]],
         [4.0*cm,2.3*cm,2.3*cm,3.2*cm,3.2*cm], s["table_cell"], s["table_header"]))
+    
     Cap("Table 1. Buyer intensity segments used for Q15 (cut on <i>n_orders</i>, not spend).")
+    fig = ROOT / "figures" / "fig_basket_size.png"
+    if fig.exists():
+        story.append(Image(str(fig), width=14*cm, height=7.2*cm))
+        Cap("Figure A. Basket size: 65% of orders contain a single product — the shelf's opening.")
+    fig = ROOT / "figures" / "fig_buyers_vs_orders.png"
+    if fig.exists():
+        story.append(Image(str(fig), width=14*cm, height=7.4*cm))
+        Cap("Figure B. Light buyers are half the customers; heavy buyers place 80% of orders.")
+
     B("Order baskets average <b>1.45 distinct products</b> (1 / 2 / 3 products: 2,219 / 850 / 332). History baskets average <b>6.27 products</b> — more than four times larger — which is why history mining floods the rule table.")
     B("Segmentation uses <i>n_orders</i> rather than <i>high_value</i> (spend-based), because Q15 asks whether frequent buyers dominate the rules — an intensity question, not a revenue-tier question. High-value flags still exist in <i>lb_users</i> (top 20% by spend, 130 users) but are not the cut that answers “to whom?” for this shelf. The chart that makes the business question visible is Figure 1 in §4: the gap between share of buyers and share of history-pair evidence.")
 
@@ -118,6 +128,11 @@ def build_main(path):
     H2("F1 · Order baskets vs history baskets")
     B("At a comparable bar (≥14 orders vs ≥13 customers), single orders yield <b>30 product rules</b>; whole histories yield <b>870</b> — every possible directed pair among 30 SKUs, all with lift &gt; 1. Large history baskets (avg 6.27 products) manufacture pairs whether or not customers buy them together. A rule set that every pair passes cannot tell the shelf what to show.")
     B("This is the analytical heart of Q15. The same Apriori procedure, at almost the same minimum count, produces two incompatible shelves. The difference is not the algorithm; it is the basket definition. Histories answer “what has this customer ever tried?”; orders answer “what is bought together when the shelf appears?” Only the second matches the mini-program moment.")
+    fig = ROOT / "figures" / "fig_rules_orders_vs_histories.png"
+    if fig.exists():
+        story.append(Image(str(fig), width=13*cm, height=6.8*cm))
+        Cap("Figure E. At a comparable bar: 30 order rules vs 870 history rules.")
+
 
     H2("F2 · The only strong order rule: Serum → Cream")
     B("At category level, <b>256 of 3,401 orders</b> contain both Serum and Cream against ~147 expected by chance (support 0.075, confidence 0.40, <b>lift 1.75</b>). Direction matters: Cream → Serum confidence is only 0.33, so the shelf should show a cream after a serum. Every other category pair at ≥1% support has lift &lt; 1 (e.g. Lip–Eye Care 0.64). Product-level serum→cream pairs choose which cream to show first but rest on thin counts (15–27 orders).")
@@ -127,6 +142,15 @@ def build_main(path):
          ["Vit. C Serum → Brightening","27 / 3,401<br/>(27 / 188 Vit. C)","0.0079","0.14","2.27","Cream #2 after Vit. C"]],
         [3.4*cm,4.0*cm,1.7*cm,1.4*cm,1.3*cm,3.4*cm], s["table_cell"], s["table_header"]))
     Cap("Table 2. Selected order rules with co-purchase counts and denominators (filters = observed frequency, not significance tests).")
+    fig = ROOT / "figures" / "fig_category_cooccurrence.png"
+    if fig.exists():
+        story.append(Image(str(fig), width=12.5*cm, height=10.5*cm))
+        Cap("Figure C. Same-order category co-occurrence (support). Serum ∩ Cream = 0.075 stands out.")
+    fig = ROOT / "figures" / "fig_serum_opportunity.png"
+    if fig.exists():
+        story.append(Image(str(fig), width=14*cm, height=7.4*cm))
+        Cap("Figure D. Monthly serum orders with vs without a cream — the shelf's addressable set.")
+
     B("Hand check (Vitamin C Serum → Hydra Gel Cream): 26 of 3,401 orders contain both (support 0.0076); 26 of 188 Vitamin C orders also contain the cream (confidence 0.14); chance predicts ~11 joint orders, we observe 26 (lift 2.29). The numbers from <i>mine()</i> match the hand count, so the pipeline is faithful to Week 3. Because product confidence tops out at 0.14, we do <i>not</i> treat SKU pairs as standalone shelf engines — only as a ranking layer under the category rule.")
     B("Going beyond the menu question: we also re-read Serum → Cream inside livestream vs store orders. Lift remains above 1.7 in both. Unlike host-manufactured bundles that appear only on stream, this habit survives on the store shelf, so it is a customer pattern rather than a presenter artefact.")
 
@@ -142,9 +166,19 @@ def build_main(path):
 
     H2("F4 · Top history pairs are not bought in the same order")
     B("Inside single orders, the top history pairs have <b>lift &lt; 1</b>. Calming Toner Mist → Pore Refining Toner has history lift 2.15 but same-order lift 0.37 (3 orders with both vs ~8 expected). Heavy buyers try substitutes across visits; labelling those pairs “frequently bought together” would misdescribe the data.")
+    fig = ROOT / "figures" / "fig_history_vs_order_lift.png"
+    if fig.exists():
+        story.append(Image(str(fig), width=14.5*cm, height=7.2*cm))
+        Cap("Figure F. Top history pairs: high history lift, same-order lift below 1.")
+
 
     H2("F5 · One shelf serves new and occasional buyers — if order-based")
     B("Serum → Cream holds for light / mid / heavy (lift 1.79 / 1.93 / 1.72), livestream and store (1.73 / 1.80), and on each customer’s <b>first order</b> (confidence 0.43, lift 1.80). A separate first-time shelf is unnecessary <i>provided</i> the shelf is mined from single orders.")
+    fig = ROOT / "figures" / "fig_serum_cream_slices.png"
+    if fig.exists():
+        story.append(Image(str(fig), width=14.5*cm, height=7.0*cm))
+        Cap("Figure G. Serum → Cream lift across buyer types, channels, and first orders.")
+
     story.append(make_table(["Slice","Orders","Support","Confidence","Lift"],
         [["buyer_type = light","366","0.093","0.410","1.79"],["buyer_type = mid","304","0.086","0.456","1.93"],
          ["buyer_type = heavy","2,731","0.072","0.394","1.72"],["channel = livestream","2,579","0.074","0.387","1.73"],
@@ -171,6 +205,10 @@ def build_main(path):
          ["Evidence that rejects the rule","Same-order lift ≤1 in a holdout month, or A/B add-on &lt; 2% for six weeks","Co-purchase count &lt; 10 / quarter or lift ≤1 inside orders"]],
         [3.1*cm,6.4*cm,6.4*cm], s["table_cell"], s["table_header"]))
     Cap("Table 5. Translating rules into shelf decisions.")
+    fig = ROOT / "figures" / "fig_scenario_value.png"
+    if fig.exists():
+        story.append(Image(str(fig), width=13.5*cm, height=7.0*cm))
+        Cap("Figure H. Scenario value if 5–15% of serum-only orders add a cream (not a measured lift).")
     H2("Expected results & condition that drops the action")
     story.append(bullets([
         "<b>Pilot:</b> from 1 Dec 2026, show the new shelf to a random half of buyers for six weeks; keep the current shelf for the other half.",
