@@ -9,30 +9,30 @@ Tip: short sentences, look at the chart, then say the one number that matters.
 ## Slide 1 — Title  
 Hi everyone — we are Team 5.
 
-Our question is simple, and we got a bit obsessed with it:  
-**after someone buys from Lumen Beauty, what should the “you may also like” shelf show — and who does that shelf really serve?**
+Our question is:  
+**after someone buys from Lumen Beauty, what should the “you may also like” shelf show — and who does that shelf serve?**
 
-We answer it with association rules on one quarter of real store data: September to November 2026.  
-In the next few minutes we will go from exploration, to the rules, to one clear Monday-morning decision.
+We answer this with association rules on one quarter of store data: September to November 2026.  
+We will move from exploration, to the rules, to one clear recommendation.
 
 ---
 
 ## Slide 2 — Why the shelf matters  
-Here is why this is worth caring about.
+Here is why this question is worth careful work.
 
 Look at this chart: **65% of orders contain only one product.**  
-So in most checkouts, the customer leaves with nothing else in the basket. That empty second slot is exactly where the shelf can help.
+So in most checkouts, the customer leaves with nothing else in the basket. That empty second slot is where the shelf can help — or fail.
 
 We have 3,401 orders, 647 buyers, and about ¥1.17 million in GMV.  
 If the shelf helps even 5 to 15% of serum-only orders add a cream, that is roughly **¥2,200 to ¥6,600 per month**.
 
-That money is nice — but it is only a scenario.  
-The sharper question is this: **if we train the shelf badly, who do we forget?**
+That is only a scenario.  
+The sharper question for us is this: **if we train the shelf badly, who do we leave out?**
 
 ---
 
 ## Slide 3 — Who places the orders?  
-This chart surprised us.
+This chart is central to the “to whom” part of Q15.
 
 Almost **half of buyers** are light buyers — one or two orders in the quarter.  
 But they place only about **11% of all orders**.
@@ -40,7 +40,7 @@ But they place only about **11% of all orders**.
 Heavy buyers are 41% of buyers, and they place **80% of orders**.
 
 So if we build rules from “everything a customer ever bought,” the algorithm mostly hears the heavy buyers.  
-Light buyers — almost half of our customers — become almost invisible. That is the heart of Q15: **to whom?**
+Light buyers — almost half of our customers — become hard to see in the data. That is the real risk we wanted to measure.
 
 ---
 
@@ -48,9 +48,9 @@ Light buyers — almost half of our customers — become almost invisible. That 
 A quick look at the store.
 
 Most orders come from **livestream**, some from the **store shelf**.  
-And when we look at categories, serums and creams show up a lot — they are central to this brand.
+Serums and creams appear often — they sit at the center of this assortment.
 
-We do not need a complicated story here. We only need to see: co-purchase is possible, and serum–cream is a natural place to look.
+We do not need a long story here. We only need to see that co-purchase is possible, and that serum–cream is a natural place to look.
 
 ---
 
@@ -62,7 +62,7 @@ We build baskets in **two ways**:
 2. **History baskets** — everything one customer bought in the whole quarter.
 
 We look only at **pairs**, because the shelf shows one product next to another.  
-For every rule we report support, confidence, lift — and also the **count and the denominator**, so nobody confuses a rare pair with a strong one.
+For every rule we report support, confidence, lift — and also the **count and the denominator**, so a rare pair is not mistaken for a strong one.
 
 Our thresholds come from the business decision, not from fishing in the data: about **14 orders**, or about **13 customers**.  
 And we split buyers into light, mid, and heavy by number of orders.
@@ -75,7 +75,7 @@ Now the finding we trust most.
 **Serum → Cream.**  
 In **256 of 3,401 orders**, a serum and a cream appear together. By chance we would expect about 147. So lift is **1.75**. Confidence is **0.40** — four in ten serum orders also have a cream.
 
-And direction matters: cream after serum is stronger than serum after cream.  
+Direction matters: cream after serum is stronger than serum after cream.  
 So the shelf message is clear: **after a serum, show a cream.**
 
 This is also the only strong category pair. Other pairs at the same bar have lift below 1.  
@@ -85,17 +85,17 @@ Importantly, the rule appears in **both livestream and store** — so it is not 
 ---
 
 ## Slide 7 — The open slot  
-This chart is the opportunity.
+This chart shows the opportunity in plain numbers.
 
 Every month, more than **120 serum orders leave without a cream**.  
-Those are the customers who already said “yes” to a serum — and still did not add a cream.
+Those are customers who already chose a serum — and still did not add a cream.
 
-That is exactly who the shelf can speak to. Not with a random bestseller — with a cream that people actually buy with serum.
+That is exactly who the shelf can speak to: not with a random bestseller, but with a cream that people actually buy with serum.
 
 ---
 
 ## Slide 8 — Histories flood the rule table  
-Here is where the second basket definition becomes exciting — and a bit dangerous.
+Here is where the second basket definition becomes important.
 
 At almost the same minimum count, **order baskets give 30 rules**.  
 **History baskets give 870** — basically every possible pair, all with lift above 1.
@@ -116,7 +116,7 @@ But inside the same order, lift falls **below 1**.
 Example: two toners look connected across a customer’s history, but in the same order they appear together only 3 times, when chance expects about 8.
 
 So these are products heavy buyers try on different days — often substitutes, not companions.  
-If we label that shelf “frequently bought together,” we would be telling a story the data does not support. That was a key “aha” for us.
+If we label that shelf “frequently bought together,” we would be telling a story the data does not support. That distinction is one of the most useful results in this project.
 
 ---
 
@@ -133,7 +133,7 @@ A separate first-time shelf is not needed. What first-time buyers need is a shel
 ---
 
 ## Slide 11 — Monday morning  
-Here is what we recommend the merchandising team does next week.
+Here is what we recommend the merchandising team does next.
 
 1. Mine the shelf from **single orders**, not whole histories.  
 2. After any **serum**, show a **cream**.  
@@ -148,7 +148,7 @@ We are not asking the brand to believe a model forever. We are asking them to te
 ---
 
 ## Slide 12 — Close  
-So, three sentences.
+Three sentences.
 
 **Show a cream after a serum.**  
 **Build the shelf from orders, not histories.**  
@@ -173,3 +173,4 @@ Thank you — we are happy to take questions.
 - Point to the chart first, then say one number.
 - If stuck: “The simple story is cream after serum, from orders not histories.”
 - For Q&A: support/confidence are frequency filters, not significance tests; the ¥ figure is a scenario; the A/B test is the real measurement.
+- Interest comes from the numbers and the logic — not from calling the project exciting.
