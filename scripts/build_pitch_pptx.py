@@ -246,7 +246,7 @@ def build():
     title_bar(
         slide,
         "Finding: Serum → Cream",
-        "256 / 3,401 orders · confidence 0.40 · lift 1.75",
+            "256 / 3,401 orders · confidence 0.40 · lift 1.75  (256 vs ~147 expected)",
     )
     add_pic(slide, "fig_serum_cream_slices.png", Inches(0.4), Inches(1.25), Inches(7.3))
     bullet_box(
@@ -331,8 +331,8 @@ def build():
         [
             "Show a cream after any serum; one shelf for all buyers",
             "Leftover slots: products light buyers buy most (mask, cleanser, toner…) — not overall bestsellers",
-            "Pilot half traffic from 1 Dec: six weeks = safety check (~90 serum-only orders / half)",
-            "Read the uplift after ~40 weeks (~585 orders / half) before claiming 5% vs 2%",
+            "Pilot half traffic from 1 Dec: six weeks = safety check (~96 serum-only orders / half)",
+            "Read the uplift after ~9 months (~588 orders / half) before claiming 5% vs 2%",
             "Success ≥ 5% cream add-on (after the longer window)",
             "Drop if < 2% in the safety window, or light buyers left behind, or control lift ≤ 1",
         ],
@@ -353,8 +353,10 @@ def build():
         [
             "Association ≠ causation; past logs cannot measure the shelf’s own effect.",
             "¥2.2–6.6k / month is a scenario — only the live split measures lift.",
-            "A six-week half is too small to separate 5% from 2%; it is a safety check.",
+            "A six-week half (~96 serum-only orders) cannot separate 5% from 2%; it is a safety check.",
+            "Same-order lifts for top history pairs rest on single-digit counts — noisy, but below 1.",
             "Light-buyer SKU ranks rest on tens of orders; we trust the category rule more.",
+            "Lift is a descriptive ratio, not a causal effect or a significance test.",
             "A live shelf may create the pairs it later mines — hence the control-half re-mine.",
         ],
         17,

@@ -14,7 +14,9 @@
     "denom": 3401,
     "support": 0.075,
     "confidence": 0.401,
-    "lift": 1.747
+    "lift": 1.747,
+    "expected_both": 146.5,
+    "cream_to_serum_confidence": 0.328
   },
   "first_order_serum_cream": {
     "support": 0.085,
@@ -152,5 +154,15 @@
       "confidence": 0.094,
       "lift": 2.048
     }
+  ],
+  "pilot": {
+    "half_6w_serum_only": 95.5,
+    "n_per_arm_5pct_vs_2pct": 588,
+    "months_to_power": 9.2,
+    "note": "6 weeks = safety check only; uplift read needs ~588 serum-only orders per half"
+  },
+  "price_range": [
+    54.45,
+    504.85
   ]
 }

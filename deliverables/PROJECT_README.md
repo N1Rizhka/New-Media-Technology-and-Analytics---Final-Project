@@ -10,9 +10,8 @@
 | Order | File | What it is |
 |---|---|---|
 | 1 | `NMTA_T05_slides.pdf` | Pitch slides (also `NMTA_T05_slides.pptx`) |
-| 2 | `NMTA_T05_report.pdf` | One PDF: main report (pp. 1–8) then appendix (A1–A3) |
+| 2 | `NMTA_T05_report.pdf` / `NMTA_T05_report.docx` | Report on `project_report_template` structure (§1–7, 8 pages) |
 | 3 | `Team5_Q15_shelf_association_rules.ipynb` | Reproducible notebook — **Restart & Run All** |
-| 4 | `NMTA_T05_report.docx` + `NMTA_T05_report_appendix.docx` | Word versions (main + appendix) |
 
 Supporting: `Team5_Q15_pitch_script.md` (spoken script), `metrics_from_data.json` (key numbers).
 
