@@ -1,27 +1,35 @@
 #!/usr/bin/env python3
-"""Build Team 5 Q15 8-minute pitch deck."""
+"""Build the unified Team 5 Q15 pitch deck + NMTA_T05_slides.pdf."""
 
 from __future__ import annotations
 
+import shutil
+import subprocess
 from pathlib import Path
 
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
-from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
-from pptx.util import Emu, Inches, Pt
+from pptx.enum.text import PP_ALIGN
+from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "deliverables" / "Team5_Q15_pitch.pptx"
-FIG = ROOT / "figures" / "fig1_history_evidence_by_buyer_type.png"
+OUT_PPTX = ROOT / "deliverables" / "Team5_Q15_pitch.pptx"
+OUT_SUBMIT = ROOT / "deliverables" / "NMTA_T05_slides.pptx"
+FIG = ROOT / "figures"
 
-# Calm analytical palette — not purple/cream AI defaults
-INK = RGBColor(0x1C, 0x24, 0x2E)
-MUTED = RGBColor(0x5A, 0x64, 0x72)
-ACCENT = RGBColor(0x0F, 0x6B, 0x5C)
-LIGHT = RGBColor(0xF4, 0xF6, 0xF5)
-RULE = RGBColor(0xC8, 0xD0, 0xCC)
+# Tongji University palette (同济蓝 C100 M60 Y0 K0 ≈ #0066B3)
+INK = RGBColor(0x22, 0x22, 0x22)
+MUTED = RGBColor(0x5A, 0x65, 0x70)
+ROSE = RGBColor(0x00, 0x66, 0xB3)  # Tongji blue (kept name for call sites)
+STONE = RGBColor(0x3F, 0x94, 0xE7)
+DEEP = RGBColor(0x00, 0x3D, 0x7A)
+PAPER = RGBColor(0xEE, 0xF1, 0xF3)
+LINE = RGBColor(0xCB, 0xCB, 0xCB)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
+TONGJI = ROSE
+
+TOTAL = 14  # 13 pitch + ethics appendix
 
 
 def set_run(run, text, size=18, bold=False, color=INK, font="Georgia"):
@@ -37,56 +45,45 @@ def add_bg(slide, prs):
         MSO_AUTO_SHAPE_TYPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height
     )
     shape.fill.solid()
-    shape.fill.fore_color.rgb = LIGHT
+    shape.fill.fore_color.rgb = PAPER
     shape.line.fill.background()
-    # send to back
     spTree = slide.shapes._spTree
     sp = shape._element
     spTree.remove(sp)
     spTree.insert(2, sp)
 
 
-def add_footer(slide, prs, page, total=10):
+def add_footer(slide, prs, page):
     box = slide.shapes.add_textbox(
-        Inches(0.5), prs.slide_height - Inches(0.45), Inches(12), Inches(0.3)
+        Inches(0.5), prs.slide_height - Inches(0.42), Inches(12.2), Inches(0.28)
     )
     tf = box.text_frame
     tf.clear()
     p = tf.paragraphs[0]
     run = p.add_run()
-    set_run(run, f"Team 5 · Q15 · Lumen Beauty  ·  {page}/{total}", 10, False, MUTED, "Calibri")
+    label = f"Team 5 · Q15 · Lumen Beauty  ·  {page}/{TOTAL}"
+    if page == TOTAL:
+        label = f"Team 5 · Q15 · Ethics appendix  ·  {page}/{TOTAL}"
+    set_run(run, label, 10, False, MUTED, "Calibri")
 
 
 def title_bar(slide, title, subtitle=None):
-    box = slide.shapes.add_textbox(Inches(0.55), Inches(0.35), Inches(12.2), Inches(0.7))
+    box = slide.shapes.add_textbox(Inches(0.55), Inches(0.28), Inches(12.2), Inches(0.85))
     tf = box.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
     run = p.add_run()
-    set_run(run, title, 28, True, INK, "Georgia")
+    set_run(run, title, 26, True, INK, "Georgia")
     if subtitle:
         p2 = tf.add_paragraph()
         run2 = p2.add_run()
-        set_run(run2, subtitle, 14, False, MUTED, "Calibri")
-    # accent rule
+        set_run(run2, subtitle, 13, False, MUTED, "Calibri")
     line = slide.shapes.add_shape(
-        MSO_AUTO_SHAPE_TYPE.RECTANGLE, Inches(0.55), Inches(1.05), Inches(1.4), Pt(3)
+        MSO_AUTO_SHAPE_TYPE.RECTANGLE, Inches(0.55), Inches(1.12), Inches(1.35), Pt(3)
     )
     line.fill.solid()
-    line.fill.fore_color.rgb = ACCENT
+    line.fill.fore_color.rgb = ROSE
     line.line.fill.background()
-
-
-def body_box(slide, left, top, width, height, lines, size=16):
-    box = slide.shapes.add_textbox(left, top, width, height)
-    tf = box.text_frame
-    tf.word_wrap = True
-    for i, (text, bold) in enumerate(lines):
-        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
-        p.space_after = Pt(8)
-        run = p.add_run()
-        set_run(run, text, size, bold, INK, "Calibri")
-    return box
 
 
 def bullet_box(slide, left, top, width, height, items, size=16):
@@ -95,30 +92,25 @@ def bullet_box(slide, left, top, width, height, items, size=16):
     tf.word_wrap = True
     for i, item in enumerate(items):
         p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
-        p.level = 0
-        p.space_after = Pt(10)
+        p.space_after = Pt(9)
         run = p.add_run()
         set_run(run, "•  " + item, size, False, INK, "Calibri")
     return box
 
 
-def metric_card(slide, left, top, width, height, value, label):
-    shape = slide.shapes.add_shape(
-        MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE, left, top, width, height
-    )
-    shape.fill.solid()
-    shape.fill.fore_color.rgb = WHITE
-    shape.line.color.rgb = RULE
-    shape.line.width = Pt(1)
-    tf = shape.text_frame
+def lift_note(slide, text, top=Inches(6.55)):
+    box = slide.shapes.add_textbox(Inches(0.55), top, Inches(12.2), Inches(0.35))
+    tf = box.text_frame
     tf.word_wrap = True
-    tf.paragraphs[0].alignment = PP_ALIGN.CENTER
-    run = tf.paragraphs[0].add_run()
-    set_run(run, value, 22, True, ACCENT, "Georgia")
-    p2 = tf.add_paragraph()
-    p2.alignment = PP_ALIGN.CENTER
-    run2 = p2.add_run()
-    set_run(run2, label, 12, False, MUTED, "Calibri")
+    p = tf.paragraphs[0]
+    run = p.add_run()
+    set_run(run, text, 12, False, DEEP, "Calibri")
+
+
+def add_pic(slide, name, left, top, width):
+    path = FIG / name
+    if path.exists():
+        slide.shapes.add_picture(str(path), left, top, width=width)
 
 
 def build():
@@ -130,30 +122,28 @@ def build():
     # 1 Title
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
-    box = slide.shapes.add_textbox(Inches(0.8), Inches(2.0), Inches(11.5), Inches(3.5))
+    box = slide.shapes.add_textbox(Inches(0.8), Inches(1.7), Inches(11.5), Inches(4.2))
     tf = box.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    run = p.add_run()
-    set_run(run, "Team 5  ·  Q15", 16, False, ACCENT, "Calibri")
+    set_run(p.add_run(), "Team 5  ·  Q15  ·  slot 10:18", 15, False, ROSE, "Calibri")
     p2 = tf.add_paragraph()
-    p2.space_before = Pt(12)
-    run2 = p2.add_run()
+    p2.space_before = Pt(14)
     set_run(
-        run2,
+        p2.add_run(),
         'What should the “you may also like”\nshelf show, and to whom?',
-        34,
+        32,
         True,
         INK,
         "Georgia",
     )
     p3 = tf.add_paragraph()
     p3.space_before = Pt(18)
-    run3 = p3.add_run()
     set_run(
-        run3,
+        p3.add_run(),
         "Association rules on Lumen Beauty orders (Sep–Nov 2026)\n"
-        "Nini Rizhamadze · Giulia Scarpa · Milena Moschetti · "
+        "EDA → theory → rules → shelf decision\n\n"
+        "Nini Rizhamadze · Giulia Scarpa · Milena Moschetti ·\n"
         "Thi Thuy Khuc · Lina-Sophie Reinsch · Hai Yen Bui",
         14,
         False,
@@ -162,173 +152,195 @@ def build():
     )
     add_footer(slide, prs, 1)
 
-    # 2 The stake
+    # 2 Stake
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
-    title_bar(slide, "The decision at stake", "One shelf. Who does it really serve?")
-    metric_card(slide, Inches(0.6), Inches(1.5), Inches(3.9), Inches(1.6), "65%", "of orders are single-product")
-    metric_card(slide, Inches(4.7), Inches(1.5), Inches(3.9), Inches(1.6), "¥2.2–6.6k", "scenario value / month if 5–15%\nof serum-only orders add a cream")
-    metric_card(slide, Inches(8.8), Inches(1.5), Inches(3.9), Inches(1.6), "93%", "of history-rule evidence comes\nfrom heavy buyers (6+ orders)")
+    title_bar(slide, "Why the shelf matters", "65% of orders leave with a single product")
+    add_pic(slide, "fig_basket_size.png", Inches(0.5), Inches(1.35), Inches(7.0))
+    bullet_box(
+        slide,
+        Inches(7.7),
+        Inches(1.45),
+        Inches(5.1),
+        Inches(4.8),
+        [
+            "3,401 orders · 647 buyers · ¥1.17M GMV",
+            "Scenario: ¥2.2–6.6k / month if 5–15% of serum-only orders add a cream",
+            "Sharper stake: 301 light buyers (46.5%) would be served by history rules that are only 1.7% built from them",
+            "Question: who trains the shelf?",
+        ],
+        15,
+    )
+    lift_note(slide, "Lift in one line: how much more often two products appear together than chance alone would predict.")
+    add_footer(slide, prs, 2)
+
+    # 3 Theory
+    slide = prs.slides.add_slide(blank)
+    add_bg(slide, prs)
+    title_bar(slide, "Theory before the rules", "STP targeting + product complementarity")
     bullet_box(
         slide,
         Inches(0.6),
-        Inches(3.5),
-        Inches(12),
-        Inches(3),
+        Inches(1.4),
+        Inches(12.1),
+        Inches(5.2),
         [
-            "Founder & merchandising team choose which rules go on the post-purchase shelf.",
-            "Q15 asks us to mine both single orders and whole customer histories — then check whom each shelf serves.",
-            "Yuan upside is modest; the sharper risk is a shelf that mirrors the heaviest buyers.",
+            "STP (“to whom”): if we train on whole histories, heavy buyers will dominate the evidence.",
+            "Complementarity (“what”): serum and cream are sequential skincare steps — they should co-occur more than chance.",
+            "Prediction 1: history rules will be written mostly by heavy buyers.",
+            "Prediction 2: Serum → Cream will show lift > 1, cream-after-serum direction, and hold in every segment.",
+            "Algorithmic bias belongs in ethics: it is the cost of choosing the wrong evidence base.",
         ],
         17,
     )
-    add_footer(slide, prs, 2)
+    lift_note(slide, "Lift > 1 means complements (bought together more than chance); lift < 1 means substitutes or noise.")
+    add_footer(slide, prs, 3)
 
-    # 3 Method
+    # 4 EDA buyers
+    slide = prs.slides.add_slide(blank)
+    add_bg(slide, prs)
+    title_bar(slide, "Who places the orders?", "Light buyers ≠ order volume")
+    add_pic(slide, "fig_buyers_vs_orders.png", Inches(0.45), Inches(1.3), Inches(7.4))
+    bullet_box(
+        slide,
+        Inches(8.0),
+        Inches(1.5),
+        Inches(4.8),
+        Inches(4.8),
+        [
+            "Light = 46.5% of buyers, 11% of orders",
+            "Heavy = 41% of buyers, 80% of orders",
+            "History rules will hear heavy buyers first",
+            "This is why “to whom?” is not optional",
+        ],
+        16,
+    )
+    add_footer(slide, prs, 4)
+
+    # 5 Method
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
     title_bar(slide, "Method in one slide", "Week 3 association rules · two basket definitions")
     bullet_box(
         slide,
         Inches(0.6),
-        Inches(1.4),
-        Inches(12),
+        Inches(1.35),
+        Inches(12.1),
         Inches(5.2),
         [
-            "Order baskets = products bought together (the moment the shelf appears).",
+            "Order baskets = products bought together (the shelf moment).",
             "History baskets = every product one customer bought in the quarter.",
-            "Pairs only. Metrics: support, confidence, lift — with co-purchase count / denominator next to each rule.",
+            "Pairs only. Support / confidence / lift — with count and denominator.",
             "Support & confidence filter frequency; they are not significance tests.",
-            "Thresholds from the shelf decision: ≥14 orders (0.4%) · ≥13 customers for histories (2%).",
-            "Segments by n_orders: light 1–2 · mid 3–5 · heavy 6+ (robust at 4 / 8 / 10).",
+            "Thresholds from the decision: ≥14 orders (0.4%) · ≥13 customers (2%).",
+            "Segments by n_orders: light 1–2 · mid 3–5 · heavy 6+.",
         ],
-        17,
+        16,
     )
-    add_footer(slide, prs, 3)
+    lift_note(slide, "Lift = confidence of A→B divided by how often B appears on its own.")
+    add_footer(slide, prs, 5)
 
-    # 4 Finding 1-2
+    # 6 Serum → Cream
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
-    title_bar(slide, "Finding: one strong order rule", "Serum → Cream · 256 / 3,401 orders · lift 1.75")
+    title_bar(
+        slide,
+        "Finding: Serum → Cream",
+        "256 / 3,401 orders · confidence 0.40 · lift 1.75",
+    )
+    add_pic(slide, "fig_serum_cream_slices.png", Inches(0.4), Inches(1.25), Inches(7.3))
     bullet_box(
         slide,
-        Inches(0.6),
+        Inches(7.85),
         Inches(1.4),
-        Inches(12),
-        Inches(5.2),
-        [
-            "At a comparable bar: 30 order rules vs 870 history rules (every possible pair).",
-            "Serum → Cream: 256 orders with both vs ~147 expected by chance; confidence 0.40.",
-            "Direction: Cream → Serum confidence is only 0.33 — show cream after serum.",
-            "Holds for light / mid / heavy (1.79 / 1.93 / 1.72), livestream & store, and first orders (1.80).",
-            "SKU pairs only rank which cream (Vit. C → Hydra Gel / Brightening; 26–27 orders).",
-        ],
-        17,
-    )
-    add_footer(slide, prs, 4)
-
-    # 5 Finding history bias + figure
-    slide = prs.slides.add_slide(blank)
-    add_bg(slide, prs)
-    title_bar(slide, "Finding: history shelves serve heavy buyers", "Light buyers = 46.5% of buyers, 1.7% of history-rule evidence")
-    if FIG.exists():
-        slide.shapes.add_picture(str(FIG), Inches(0.6), Inches(1.35), width=Inches(7.2))
-    bullet_box(
-        slide,
-        Inches(8.0),
-        Inches(1.5),
+        Inches(5.0),
         Inches(4.8),
-        Inches(5),
         [
-            "Heavy buyers average 11.7 products → most pair evidence.",
-            "Top history pairs have same-order lift < 1 (substitutes across visits).",
-            "Calling them “bought together” would mislabel the shelf.",
-            "Robust at every heavy cut-off we tried.",
+            "Only category pair with lift > 1 at ≥1% support",
+            "Direction: show cream after serum (0.40 vs 0.33)",
+            "Matches complementarity: two routine steps",
+            "Holds in livestream and store",
+            "SKU pairs only rank which cream (15–27 orders)",
         ],
         15,
     )
-    add_footer(slide, prs, 5)
-
-    # 6 Shelf decision card
-    slide = prs.slides.add_slide(blank)
-    add_bg(slide, prs)
-    title_bar(slide, "From rule to shelf decision", "What a buyer with no history sees — and what would reject the rule")
-    rows = [
-        ("Trigger", "Any serum in the current basket"),
-        ("Customers", "Everyone — including first-time / light buyers"),
-        ("Shelf position", "Slot 1 on the post-purchase shelf: a cream"),
-        ("No history", "Same shelf (first-order lift 1.80)"),
-        ("Reject if", "A/B add-on < 2% in 6 weeks, or same-order lift ≤ 1 on control"),
-    ]
-    y = Inches(1.35)
-    for label, text in rows:
-        lab = slide.shapes.add_shape(
-            MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE, Inches(0.6), y, Inches(2.4), Inches(0.85)
-        )
-        lab.fill.solid()
-        lab.fill.fore_color.rgb = ACCENT
-        lab.line.fill.background()
-        tf = lab.text_frame
-        tf.paragraphs[0].alignment = PP_ALIGN.CENTER
-        run = tf.paragraphs[0].add_run()
-        set_run(run, label, 14, True, WHITE, "Calibri")
-        body = slide.shapes.add_shape(
-            MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE, Inches(3.2), y, Inches(9.4), Inches(0.85)
-        )
-        body.fill.solid()
-        body.fill.fore_color.rgb = WHITE
-        body.line.color.rgb = RULE
-        tf2 = body.text_frame
-        tf2.word_wrap = True
-        run2 = tf2.paragraphs[0].add_run()
-        set_run(run2, text, 16, False, INK, "Calibri")
-        y += Inches(1.0)
+    lift_note(slide, "Lift 1.75 = serum and cream appear together 75% more often than chance.")
     add_footer(slide, prs, 6)
 
-    # 7 Recommendation
+    # 7 Open slot
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
-    title_bar(slide, "Monday morning", "What the merchandising team does next")
-    bullet_box(
-        slide,
-        Inches(0.6),
-        Inches(1.4),
-        Inches(12),
-        Inches(5.2),
-        [
-            "Mine the shelf from single orders — not from purchase histories.",
-            "After any serum, show a cream; rank creams with thin SKU pairs.",
-            "One shelf for all buyers; no separate first-time shelf.",
-            "Remaining slots: products light buyers buy most — not overall bestsellers.",
-            "Pilot from 1 Dec 2026: random half for six weeks; success ≥ 5% cream add-on among serum-only orders.",
-            "Drop the action if treatment add-on < 2% vs control, or light buyers are left behind.",
-        ],
-        17,
-    )
+    title_bar(slide, "The open slot", "~127 serum orders / month leave without a cream")
+    add_pic(slide, "fig_serum_opportunity.png", Inches(1.2), Inches(1.35), Inches(10.8))
+    lift_note(slide, "Sep 137 · Oct 124 · Nov 121 serum-only orders — the shelf’s addressable set each month.")
     add_footer(slide, prs, 7)
 
-    # 8 Ethics (short, since appendix has full)
+    # 8 Histories flood
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
-    title_bar(slide, "Ethics tied to this shelf", "Bias, labelling, and data minimisation")
+    title_bar(slide, "Histories flood the rule table", "Same bar → 30 order rules vs 870 history rules")
+    add_pic(slide, "fig_rules_orders_vs_histories.png", Inches(0.4), Inches(1.3), Inches(6.6))
+    add_pic(slide, "fig1_history_evidence_by_buyer_type.png", Inches(7.1), Inches(1.35), Inches(5.7))
+    lift_note(slide, "Heavy buyers = 41% of buyers but 92.9% of history-rule evidence — Prediction 1 confirmed.")
+    add_footer(slide, prs, 8)
+
+    # 9 History ≠ together
+    slide = prs.slides.add_slide(blank)
+    add_bg(slide, prs)
+    title_bar(slide, "History pairs ≠ bought together", "Same-order lift falls below 1")
+    add_pic(slide, "fig_history_vs_order_lift.png", Inches(0.55), Inches(1.3), Inches(12.1))
+    lift_note(slide, "Lift < 1 inside one order = substitutes across visits, not “frequently bought together”.")
+    add_footer(slide, prs, 9)
+
+    # 10 One shelf
+    slide = prs.slides.add_slide(blank)
+    add_bg(slide, prs)
+    title_bar(slide, "One shelf for everyone — if order-based", "Including first-time and light buyers")
+    add_pic(slide, "fig_serum_cream_slices.png", Inches(0.45), Inches(1.25), Inches(7.5))
+    bullet_box(
+        slide,
+        Inches(8.1),
+        Inches(1.45),
+        Inches(4.7),
+        Inches(4.8),
+        [
+            "Light / mid / heavy: lift 1.79 / 1.93 / 1.72",
+            "First orders: lift 1.80",
+            "No separate first-time shelf needed",
+            "What new buyers need: a shelf not trained only on heavy histories",
+        ],
+        15,
+    )
+    lift_note(slide, "Same lift pattern in every segment = Prediction 2 confirmed.")
+    add_footer(slide, prs, 10)
+
+    # 11 Monday morning
+    slide = prs.slides.add_slide(blank)
+    add_bg(slide, prs)
+    title_bar(
+        slide,
+        "Monday morning",
+        "Mine from orders · cream after serum · pilot with a kill switch",
+    )
     bullet_box(
         slide,
         Inches(0.6),
-        Inches(1.4),
-        Inches(12),
-        Inches(5.2),
+        Inches(1.35),
+        Inches(12.1),
+        Inches(5.3),
         [
-            "Stake: a history shelf would serve light buyers a heavy-buyer catalogue.",
-            "Misinformation risk: do not label cross-visit substitutes as “bought together”.",
-            "Privacy: order-based rules need only the current basket (PIPL minimisation).",
-            "Safeguard: re-mine rules on the control half; report results by buyer type.",
-            "Offer a non-profiled option (Algorithmic Recommendation Provisions, Art. 17).",
+            "Show a cream after any serum; one shelf for all buyers",
+            "Leftover slots: products light buyers buy most (mask, cleanser, toner…) — not overall bestsellers",
+            "Pilot half traffic from 1 Dec: six weeks = safety check (~90 serum-only orders / half)",
+            "Read the uplift after ~40 weeks (~585 orders / half) before claiming 5% vs 2%",
+            "Success ≥ 5% cream add-on (after the longer window)",
+            "Drop if < 2% in the safety window, or light buyers left behind, or control lift ≤ 1",
         ],
-        17,
+        15,
     )
-    add_footer(slide, prs, 8)
+    add_footer(slide, prs, 11)
 
-    # 9 Limits
+    # 12 Limitations
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
     title_bar(slide, "What the data cannot tell us", "Honest limits before Q&A")
@@ -336,36 +348,92 @@ def build():
         slide,
         Inches(0.6),
         Inches(1.4),
-        Inches(12),
+        Inches(12.1),
         Inches(5.2),
         [
             "Association ≠ causation; past logs cannot measure the shelf’s own effect.",
-            "¥2.2–6.6k / month is a scenario — only the A/B test measures lift.",
-            "Light-buyer SKU rules are thin (366 orders); we trust the category rule.",
-            "Live shelf may create the pairs it later mines — hence the control-half re-mine.",
+            "¥2.2–6.6k / month is a scenario — only the live split measures lift.",
+            "A six-week half is too small to separate 5% from 2%; it is a safety check.",
+            "Light-buyer SKU ranks rest on tens of orders; we trust the category rule more.",
+            "A live shelf may create the pairs it later mines — hence the control-half re-mine.",
         ],
         17,
     )
-    add_footer(slide, prs, 9)
+    add_footer(slide, prs, 12)
 
-    # 10 Close
+    # 13 Close
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
-    box = slide.shapes.add_textbox(Inches(0.8), Inches(2.2), Inches(11.5), Inches(3.5))
+    box = slide.shapes.add_textbox(Inches(0.8), Inches(2.0), Inches(11.5), Inches(3.8))
     tf = box.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    run = p.add_run()
-    set_run(run, "Show a cream after a serum.\nBuild the shelf from orders, not histories.", 30, True, INK, "Georgia")
+    set_run(
+        p.add_run(),
+        "Show a cream after a serum.\nBuild the shelf from orders, not histories.",
+        28,
+        True,
+        INK,
+        "Georgia",
+    )
     p2 = tf.add_paragraph()
-    p2.space_before = Pt(20)
-    run2 = p2.add_run()
-    set_run(run2, "One shelf for everyone — including buyers with no history.\nPilot half the traffic for six weeks. Drop it if it fails the kill conditions.", 16, False, MUTED, "Calibri")
-    add_footer(slide, prs, 10)
+    p2.space_before = Pt(18)
+    set_run(
+        p2.add_run(),
+        "One shelf for everyone — including buyers with no history.\n"
+        "Six weeks to catch failure; a longer split to measure uplift.\n"
+        "Drop it if the kill conditions fire.",
+        16,
+        False,
+        MUTED,
+        "Calibri",
+    )
+    add_footer(slide, prs, 13)
 
-    OUT.parent.mkdir(exist_ok=True)
-    prs.save(str(OUT))
-    print("wrote", OUT)
+    # 14 Ethics appendix (required after last pitch slide)
+    slide = prs.slides.add_slide(blank)
+    add_bg(slide, prs)
+    title_bar(slide, "Appendix · Ethics & compliance", "Bias, labelling, privacy — tied to this shelf")
+    bullet_box(
+        slide,
+        Inches(0.6),
+        Inches(1.35),
+        Inches(12.1),
+        Inches(5.3),
+        [
+            "Stake: a history shelf serves 301 light buyers a heavy-buyer catalogue (1.7% of the evidence).",
+            "Misinformation: do not label cross-visit substitutes as “bought together”.",
+            "Privacy: order-based rules need only the current basket (PIPL minimisation).",
+            "Offer a non-profiled option / easy opt-out (Algorithmic Recommendation Provisions, Art. 17).",
+            "Safeguard: re-mine on the control half; report results by buyer type; drop under the kill conditions.",
+        ],
+        16,
+    )
+    add_footer(slide, prs, 14)
+
+    OUT_PPTX.parent.mkdir(exist_ok=True)
+    prs.save(str(OUT_PPTX))
+    shutil.copy2(OUT_PPTX, OUT_SUBMIT)
+    print("wrote", OUT_PPTX)
+    print("wrote", OUT_SUBMIT)
+
+    # Export PDF via LibreOffice
+    out_dir = ROOT / "deliverables"
+    cmd = [
+        "soffice",
+        "--headless",
+        "--convert-to",
+        "pdf",
+        "--outdir",
+        str(out_dir),
+        str(OUT_SUBMIT),
+    ]
+    try:
+        subprocess.run(cmd, check=True, capture_output=True, text=True)
+        pdf = out_dir / "NMTA_T05_slides.pdf"
+        print("wrote", pdf if pdf.exists() else "(pdf conversion produced no file)")
+    except Exception as e:
+        print("PDF conversion failed:", e)
 
 
 if __name__ == "__main__":

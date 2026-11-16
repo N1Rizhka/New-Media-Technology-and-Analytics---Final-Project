@@ -2,43 +2,40 @@
 
 **Question:** What should the “you may also like” shelf show, and to whom?  
 **Method:** Association rules (Week 3) on Lumen Beauty Sep–Nov 2026 orders  
-**Team 5:** Nini Rizhamadze, Giulia Scarpa, Milena Moschetti, Thi Thuy Khuc, Lina-Sophie Reinsch, Hai Yen Bui
+**Team 5:** Nini Rizhamadze, Giulia Scarpa, Milena Moschetti, Thi Thuy Khuc, Lina-Sophie Reinsch, Hai Yen Bui  
+**Visual style:** Tongji University blue (同济蓝), not a cosmetic brand palette
 
-## Deliverables (submit these)
+## Open first (submission)
+
+See **[`deliverables/PROJECT_README.md`](deliverables/PROJECT_README.md)** for the ZIP packing list, how to run the notebook (`mlxtend>=0.23.4`), and what each table holds.
 
 | File | Role |
 |---|---|
-| [`deliverables/Team5_Q15_shelf_association_rules.ipynb`](deliverables/Team5_Q15_shelf_association_rules.ipynb) | Reproducible Python notebook |
-| [`deliverables/Team5_Q15_report.pdf`](deliverables/Team5_Q15_report.pdf) | Main report (≤12 pages) |
-| [`deliverables/Team5_Q15_appendix.pdf`](deliverables/Team5_Q15_appendix.pdf) | Ethics (§6) + AI use (§7) appendix |
-| [`deliverables/Team5_Q15_pitch.pptx`](deliverables/Team5_Q15_pitch.pptx) | 8-minute pitch slides |
+| [`deliverables/NMTA_T05_slides.pdf`](deliverables/NMTA_T05_slides.pdf) | Pitch slides (required name) · also `.pptx` |
+| [`deliverables/NMTA_T05_report.pdf`](deliverables/NMTA_T05_report.pdf) | One PDF: main report then appendix |
+| [`deliverables/NMTA_T05_report.docx`](deliverables/NMTA_T05_report.docx) | Main report (Word) |
+| [`deliverables/NMTA_T05_report_appendix.docx`](deliverables/NMTA_T05_report_appendix.docx) | Appendix A1–A3 (Word) |
+| [`deliverables/Team5_Q15_shelf_association_rules.ipynb`](deliverables/Team5_Q15_shelf_association_rules.ipynb) | Reproducible notebook |
 
 ## Data
 
-Official course CSVs live in [`data/`](data/) (`lb_order_lines.csv`, `lb_users.csv`, plus streams/comments/follows). The notebook, report, and slides were re-run on this export; key live metrics are also saved in `deliverables/metrics_from_data.json`.
+Official course CSVs in [`data/`](data/). Key live metrics also in `deliverables/metrics_from_data.json`.
 
-## Figures
-
-EDA and finding charts used in the report and pitch live in [`figures/`](figures/) (basket size, buyers vs orders, category co-occurrence, serum opportunity, order vs history rules, slice lifts, scenario value, etc.). They are produced by the notebook on Restart & Run All.
-
-## Rebuild PDF / PPT locally
+## Rebuild locally
 
 ```bash
-pip install reportlab python-pptx pypdf mlxtend pandas matplotlib
-python scripts/build_report_pdf.py
+pip install reportlab python-pptx python-docx pypdf pandas matplotlib "mlxtend>=0.23.4"
+python scripts/build_report_docx.py
 python scripts/build_pitch_pptx.py
 ```
 
 ## Professor feedback addressed
 
 - Both units of analysis (orders + histories); 1.45 = distinct products / order  
-- Support/confidence as frequency filters, not significance; counts + denominators on rules  
-- Shelf decision cards (trigger, customers, position, no-history view, reject evidence)  
-- Serves new/occasional buyers checked via light buyers + first orders  
-- Expected results + explicit drop / kill conditions  
-- Ethics + AI moved to appendix; AI tools named (Claude, Cursor)  
-- Goes beyond the menu (channel split, first-order check, light-vs-heavy stretch)
-
-## Source materials (reference)
-
-Project brief, rubric, question menu, data dictionary/guidebook, team plan, professor comment screenshots, and earlier drafts live in the repo root.
+- Support/confidence as frequency filters, not significance; counts + denominators  
+- Shelf decision cards; expected results + drop / kill conditions  
+- Serves new/occasional buyers (light + first orders)  
+- Theory: STP + skincare complementarity; bias in ethics (A1)  
+- Pilot honesty: 6 weeks = safety check; ~40 weeks to separate 5% from 2%  
+- Ethics + AI in appendix (A1 / A2); supporting figures A3  
+- Slides include Theory, Limitations, and Ethics appendix after the close  
