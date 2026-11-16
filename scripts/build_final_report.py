@@ -753,16 +753,29 @@ def build(path: Path):
 
 
 def to_pdf(docx_path: Path, pdf_path: Path):
-    # Copy to /tmp first — LibreOffice sometimes fails on special paths
+    # Copy to /tmp and use a clean LibreOffice profile — Writer needs to be installed.
     tmp = Path("/tmp") / docx_path.name
     shutil.copy2(docx_path, tmp)
+    profile = Path("/tmp/lo_profile_report")
+    profile.mkdir(exist_ok=True)
     subprocess.run(
-        ["soffice", "--headless", "--convert-to", "pdf", "--outdir", "/tmp", str(tmp)],
+        [
+            "soffice",
+            f"-env:UserInstallation=file://{profile}",
+            "--headless",
+            "--convert-to",
+            "pdf",
+            "--outdir",
+            "/tmp",
+            str(tmp),
+        ],
         check=True,
         capture_output=True,
         text=True,
     )
     produced = Path("/tmp") / (docx_path.stem + ".pdf")
+    if not produced.exists():
+        raise FileNotFoundError(f"LibreOffice did not produce {produced}")
     shutil.copy2(produced, pdf_path)
     print("wrote", pdf_path)
 
