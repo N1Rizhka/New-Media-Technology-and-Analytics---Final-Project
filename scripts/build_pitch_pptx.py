@@ -126,7 +126,7 @@ def build():
     tf = box.text_frame
     tf.word_wrap = True
     p = tf.paragraphs[0]
-    set_run(p.add_run(), "Team 5  ·  Q15  ·  slot 10:18", 15, False, ROSE, "Calibri")
+    set_run(p.add_run(), "Team 5  ·  Q15  ·  investor decision pitch", 15, False, ROSE, "Calibri")
     p2 = tf.add_paragraph()
     p2.space_before = Pt(14)
     set_run(
@@ -141,8 +141,8 @@ def build():
     p3.space_before = Pt(18)
     set_run(
         p3.add_run(),
-        "Association rules on Lumen Beauty orders (Sep–Nov 2026)\n"
-        "EDA → theory → rules → shelf decision\n\n"
+        "Vote: approve one order-based shelf (cream after serum) + kill-switch pilot\n"
+        "Evidence: Lumen Beauty orders · Sep–Nov 2026 · association rules\n\n"
         "Nini Rizhamadze · Giulia Scarpa · Milena Moschetti ·\n"
         "Thi Thuy Khuc · Lina-Sophie Reinsch · Hai Yen Bui",
         14,
@@ -155,7 +155,7 @@ def build():
     # 2 Stake
     slide = prs.slides.add_slide(blank)
     add_bg(slide, prs)
-    title_bar(slide, "Why the shelf matters", "65% of orders leave with a single product")
+    title_bar(slide, "Why investors should care", "Empty baskets + a fairness risk if we train on histories")
     add_pic(slide, "fig_basket_size.png", Inches(0.5), Inches(1.35), Inches(7.0))
     bullet_box(
         slide,
@@ -164,14 +164,15 @@ def build():
         Inches(5.1),
         Inches(4.8),
         [
-            "3,401 orders · 647 buyers · ¥1.17M GMV",
-            "Scenario: ¥2.2–6.6k / month if 5–15% of serum-only orders add a cream",
-            "Sharper stake: 301 light buyers (46.5%) would be served by history rules that are only 1.7% built from them",
-            "Question: who trains the shelf?",
+            "Shelf after every order: 3,401 checkouts · 647 buyers",
+            "65% leave with one product — room for one add-on",
+            "Upside scenario: ¥2.2–6.6k / month if 5–15% of ~127 serum-only orders add cream",
+            "Risk: 301 light buyers (46.5%) would see history rules only 1.7% built from them",
+            "Vote question: who trains the shelf?",
         ],
-        15,
+        14,
     )
-    lift_note(slide, "Lift in one line: how much more often two products appear together than chance alone would predict.")
+    lift_note(slide, "Lift = how much more often two products appear together than chance — a descriptive ratio, not a promise of sales.")
     add_footer(slide, prs, 2)
 
     # 3 Theory
@@ -319,8 +320,8 @@ def build():
     add_bg(slide, prs)
     title_bar(
         slide,
-        "Monday morning",
-        "Mine from orders · cream after serum · pilot with a kill switch",
+        "The ask — what we want you to approve",
+        "Order-based shelf · cream after serum · kill-switch pilot",
     )
     bullet_box(
         slide,
@@ -329,12 +330,12 @@ def build():
         Inches(12.1),
         Inches(5.3),
         [
-            "Show a cream after any serum; one shelf for all buyers",
-            "Leftover slots: products light buyers buy most (mask, cleanser, toner…) — not overall bestsellers",
-            "Pilot half traffic from 1 Dec: six weeks = safety check (~96 serum-only orders / half)",
-            "Read the uplift after ~9 months (~588 orders / half) before claiming 5% vs 2%",
-            "Success ≥ 5% cream add-on (after the longer window)",
-            "Drop if < 2% in the safety window, or light buyers left behind, or control lift ≤ 1",
+            "Approve: cream in slot 1 after serum — one shelf for all buyers (incl. first-time)",
+            "Reject for primary slot: history-trained “bought together” personalisation",
+            "Leftover slots from light-buyer favourites — not heavy-buyer bestsellers",
+            "Pilot 50/50 from 1 Dec: six weeks = safety only (~96 serum-only / half)",
+            "Measure 5% vs 2% only after ~9 months (~588 / half); success ≥ 5% add-on",
+            "Kill switch: < 2% and no better than control · light/first-time left behind · control lift ≤ 1",
         ],
         15,
     )
@@ -372,7 +373,7 @@ def build():
     p = tf.paragraphs[0]
     set_run(
         p.add_run(),
-        "Show a cream after a serum.\nBuild the shelf from orders, not histories.",
+        "Vote yes: cream after serum.\nTrain on the checkout — not the biography.",
         28,
         True,
         INK,
@@ -383,8 +384,8 @@ def build():
     set_run(
         p2.add_run(),
         "One shelf for everyone — including buyers with no history.\n"
-        "Six weeks to catch failure; a longer split to measure uplift.\n"
-        "Drop it if the kill conditions fire.",
+        "Fund a 50/50 pilot with a kill switch.\n"
+        "Six weeks to catch failure; longer only to measure uplift.",
         16,
         False,
         MUTED,

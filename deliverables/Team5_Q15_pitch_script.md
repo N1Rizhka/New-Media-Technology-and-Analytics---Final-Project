@@ -1,194 +1,213 @@
-# Team 5 · Q15 Speaker Notes (final report aligned)
-**What should the “you may also like” shelf show, and to whom?**  
+# Team 5 · Q15 Investor Pitch — Speaker Notes
+**Decision we need:** approve an order-based “you may also like” shelf (cream after serum) for all buyers, with a kill-switch pilot.  
 Target **~7:00–7:15** · hard stop before **8:00** · 14 slides
 
-Speak naturally. Do not read the report. If late, cut lines marked `[cut]`.
+**Audience:** investors voting on the idea. Every number must earn its place: state the claim → show the number → say what it means for the vote.
 
-**Pace:** ~130–140 words/min · spoken body ≈ **950–1,000 words** → about **7 minutes**.
+**Pace:** ~130–140 words/min · ~980 spoken words ≈ **7 minutes**.
+
+---
+
+## Logic arc (what to remember)
+
+1. **Ask** — one shelf decision, not a science fair.  
+2. **Money** — empty baskets + serum-without-cream = testable upside.  
+3. **Risk** — history rules would serve almost half the customers with evidence from almost nobody among them.  
+4. **Proof** — same-order Serum→Cream is real, directional, and holds for first-time buyers.  
+5. **Trap** — history “pairs” often are not bought together.  
+6. **Vote** — mine orders; cream after serum; pilot with a kill switch.
 
 ---
 
 ## Timing map
 
-| # | Slide | Sec | Cum. |
-|--:|-------|----:|-----:|
-| 1 | Title | 25 | 0:25 |
-| 2 | Why the shelf matters | 45 | 1:10 |
-| 3 | Theory | 35 | 1:45 |
-| 4 | Who places the orders? | 30 | 2:15 |
-| 5 | Method | 35 | 2:50 |
-| 6 | Serum → Cream | 40 | 3:30 |
-| 7 | The open slot | 25 | 3:55 |
-| 8 | Histories flood the rules | 35 | 4:30 |
-| 9 | History ≠ bought together | 30 | 5:00 |
-| 10 | One shelf for everyone | 35 | 5:35 |
-| 11 | Monday morning | 50 | 6:25 |
-| 12 | Limits | 25 | 6:50 |
-| 13 | Close | 25 | 7:15 |
-| 14 | Ethics appendix | 15 | **7:30** |
+| # | Slide | Sec | Cum. | Investor job of the slide |
+|--:|-------|----:|-----:|---------------------------|
+| 1 | Title | 25 | 0:25 | Frame the vote |
+| 2 | Why it matters | 45 | 1:10 | Upside + fairness risk |
+| 3 | Theory | 30 | 1:40 | What we expected |
+| 4 | Who orders | 30 | 2:10 | Why “to whom?” is money |
+| 5 | Method | 30 | 2:40 | Why order baskets = shelf moment |
+| 6 | Serum → Cream | 40 | 3:20 | The product to put on the shelf |
+| 7 | Open slot | 25 | 3:45 | Who we can still convert |
+| 8 | Histories flood | 35 | 4:20 | Why not train on histories |
+| 9 | History ≠ together | 30 | 4:50 | Don’t buy false “bought together” |
+| 10 | One shelf | 35 | 5:25 | No need for segment shelves |
+| 11 | Monday / ask | 55 | 6:20 | Exact decision + pilot |
+| 12 | Limits | 25 | 6:45 | Honest de-risking |
+| 13 | Close | 25 | **7:10** | Vote line |
+| 14 | Ethics | ≤15 | 7:25 | Only if early |
 
-If you hit slide 12 after **6:40**, skip slide 14 speech.
+If slide 12 starts after **6:35**, skip slide 14.
 
 ---
 
 ## Slide 1 — Title *(0:25)*
 
-Hi everyone — we are Team 5.
+Hi everyone — Team 5.
 
-After a purchase in Lumen Beauty’s Douyin mini-program, customers see a “you may also like” shelf. Our question: **what should that shelf show, and to whom?**
+We are here for a clear vote. After checkout in Lumen Beauty’s Douyin mini-program, customers see a “you may also like” shelf. That shelf can either grow the basket — or quietly serve the wrong customers.
 
-We use association rules on orders from September to November 2026, and we compare two ways of learning the recommendations.
+**The decision:** what should it show, and should one version serve everyone?
+
+We will show you the evidence, then ask you to approve one recommendation design and a controlled pilot.
 
 ---
 
 ## Slide 2 — Why the shelf matters *(0:45)*
 
-In our window the shelf would appear after every completed order: **3,401 orders from 647 buyers**.
+Start with the commercial logic.
 
-**65% of those orders — 2,219 — contain only one product.** Most checkouts leave an empty second slot.
+Every completed order can see this shelf — in our quarter that is **3,401 orders from 647 buyers**. **65% of those orders leave with only one product.** So most checkouts still have room for one more item.
 
-Serum without cream is the clearest opportunity: about **127 serum-only orders per month**. If 5 to 15% of them added a cream at ¥346.52, that is a scenario of **¥2,206 to ¥6,619 per month** — about 0.6 to 1.7% of monthly GMV. Scenario only — not a measured effect.
+Serum without cream is the cleanest gap: about **127 serum-only orders every month**. If the shelf persuaded **5 to 15%** of them to add a cream worth **¥346.52**, that is **¥2,206 to ¥6,619 extra per month** — roughly **0.6 to 1.7% of monthly GMV**. That is a **scenario to justify a test**, not a promise of lift.
 
-The sharper stake is who the shelf is trained on. A history-trained shelf would still be shown to **301 light buyers — 46.5% of customers** — but only **about 1.7% of the evidence** behind those rules would come from them.
+Now the strategic risk that should worry investors. If we train the shelf on full purchase histories, it would still be shown to **301 light buyers — almost half the customer base** — while only **about 1.7% of the evidence** behind those rules would come from them. We would spend the shelf moment on a catalogue written by frequent buyers.
 
-So: who trains the shelf?
-
-*[cut if late]* Lift means how much more often two products appear together than chance alone.
+So the vote is not “more AI.” It is: **which behaviour trains the shelf — the checkout in front of us, or a heavy buyer’s whole quarter?**
 
 ---
 
-## Slide 3 — Theory *(0:35)*
+## Slide 3 — Theory *(0:30)*
 
-Two predictions before mining.
+Before we mined, we made two bets investors can hold us to.
 
-**STP:** if we train on full customer histories, heavy buyers will dominate the evidence.
+First, **targeting**: history-based rules will be dominated by heavy buyers — because more orders create more product pairs.
 
-**Complementarity:** serum and cream are sequential skincare steps — they should co-occur more than chance, cream after serum, across segments and first orders.
+Second, **product logic**: serum and cream are sequential skincare steps, so they should appear together more than chance, with cream after serum — including for first-time buyers.
 
-Algorithmic bias is the ethics cost of the wrong evidence base — Appendix A1 — not the explanation of the co-purchase itself.
+If both hold, the smart shelf is simple: use the **current order**, recommend cream after serum, **one design for everyone**.
 
 ---
 
 ## Slide 4 — Who places the orders? *(0:30)*
 
-Light buyers are **46.5% of customers** but only **10.8% of orders**.
+Here is why the “to whom” question is not academic.
 
-Heavy buyers are **41% of buyers** and place **80.3% of orders**.
+Light buyers are **46.5% of customers** but only **10.8% of orders**. Heavy buyers are **41% of buyers** and generate **80.3% of orders**.
 
-If recommendations come from histories, the algorithm hears that 41% first. That is why “to whom?” is not optional.
+Any system that learns from **histories** will overweight that 41%. If we then show that shelf to everyone, nearly half the brand’s customers get a frequent-buyer catalogue. That is a targeting failure dressed up as personalisation.
 
 ---
 
-## Slide 5 — Method *(0:35)*
+## Slide 5 — Method *(0:30)*
 
-Week 3 Apriori in Python, product **pairs only** — the shelf suggests one add-on.
+So we compared the two evidence bases investors might fund.
 
-**Order basket** = products in one checkout — the shelf moment.  
-**History basket** = every distinct product a customer bought in the quarter.
+**Order baskets** = what was bought in the same checkout — exactly when the shelf appears.  
+**History baskets** = everything a customer bought across three months — even on different days.
 
-We report support, confidence, and lift with counts and denominators. Thresholds are frequency filters, not significance tests.
+We keep only **pairs**, because the shelf suggests one add-on. We always show counts, not just percentages. Support and confidence are frequency filters — they are **not** proof of causation.
 
-Order product rules need at least **14 of 3,401** orders; history rules at least **13 of 647** customers. Segments by order count: light 1–2, mid 3–5, heavy 6+.
+Bottom line for the vote: if the shelf appears at checkout, the fair training unit is the **order**, not the biography.
 
 ---
 
 ## Slide 6 — Serum → Cream *(0:40)*
 
-Finding two: **Serum → Cream** is the only strong category rule in same-order baskets.
+This is the product we want on the shelf.
 
-**256 of 3,401** orders have both; chance expects about **146.5**. Support 0.075, confidence **0.40**, lift **1.75**.
+In the same order, **256 of 3,401** baskets contain both serum and cream. If those categories were independent, we would expect about **147**. So they travel together **1.75 times** as often as chance — confidence **0.40**: four in ten serum orders already include cream.
 
-Direction: cream after serum is stronger than the reverse (0.40 vs 0.33). Every other category pair at 1% support has lift below one.
+**Direction matters for merchandising:** cream after serum is stronger than serum after cream. So when the basket has serum and no cream, slot one should be a cream.
 
-SKU pairs — Vitamin C Serum to Hydra Gel or Brightening — only **rank** which cream. They rest on 26 and 27 orders.
+SKU pairs — for example Vitamin C Serum with Hydra Gel or Brightening Cream — only help **rank** which cream. They rest on about **26–27** orders, so they support ranking, not a second strategy.
 
-*[cut if late]* Livestream lift 1.73, store 1.80 — not only a livestream bundle.
+*[if time]* The pattern holds in livestream **and** store — so this is not only a host pushing a bundle.
 
 ---
 
 ## Slide 7 — The open slot *(0:25)*
 
-Each month, many serum buyers still leave without cream: **137, 124, and 121** across Sep–Oct–Nov — about **127 per month**.
+Look at who we can still convert.
 
-Those are the addressable checkouts for slot one.
+Each month, **137, then 124, then 121** serum orders leave **without** cream — about **127 addressable checkouts**. Those people already bought serum; they have not added the complement yet. That is the audience for the recommendation we are asking you to fund.
 
 ---
 
 ## Slide 8 — Histories flood the rules *(0:35)*
 
-Finding one: same frequency idea, different answers — **30 order rules** versus **870 history rules**. Histories cover every directed pair among 30 SKUs, all with lift above one.
+Why not just mine histories and get “more insights”?
 
-Why? History baskets average **6.27** products; orders average **1.45**. Histories invent pairs never bought together.
+Same frequency bar: **30** usable product rules from orders versus **870** from histories — every possible directed pair among 30 SKUs.
 
-Prediction 1 confirmed: heavy buyers contribute **92.9%** of history-pair evidence — and that dominance holds at every cut-off we tried.
+That explosion is not more truth. History baskets average **6.27** products; order baskets average **1.45**. Histories manufacture pairs that were never bought together.
+
+And the investor risk shows up in the evidence share: heavy buyers are **41% of customers** but supply **92.9% of history-pair evidence**. Light buyers are **46.5% of customers** and supply **1.7%**. Our first prediction holds. **Funding a history shelf means funding a heavy-buyer shelf.**
 
 ---
 
 ## Slide 9 — History ≠ bought together *(0:30)*
 
-Finding four: high history lift is not “frequently bought together.”
+Here is the trap in those 870 rules.
 
-Example: Calming Toner Mist → Pore Refining Toner has history lift **2.15**, but same-order lift **0.37** — only **three** joint orders versus about eight expected.
+A top history pair can look strong over the quarter — history lift above **2** — and still show **same-order lift below 1**. One example sits at history lift **2.15** but same-order lift **0.37**, with only **three** joint orders.
 
-Heavy buyers may try alternatives on different days. Labelling that “bought together” would misrepresent the data.
+Logic: heavy buyers try similar products on different days as **alternatives**, not as a bundle. If we labelled that “frequently bought together,” we would mislead customers and waste the shelf. **Do not vote for history pairs as cross-sell truth.**
 
 ---
 
 ## Slide 10 — One shelf for everyone *(0:35)*
 
-Finding five: do we need separate shelves?
+Do we need separate shelves for light and heavy buyers? That would cost more ops complexity.
 
-No — if we mine from **orders**. Serum → Cream lift stays above one for light, mid, and heavy — **1.79, 1.93, 1.72** — and on **first orders alone, 1.80**.
+No — **if** we mine from orders. Serum → Cream stays above chance for light, mid, and heavy — lifts about **1.79, 1.93, and 1.72**. On **first orders alone**, lift is **1.80**.
 
-Mined separately in light and heavy order baskets, Serum → Cream is still the primary category rule in both. Prediction 2 confirmed. One shelf is enough.
+So a buyer with **no history** can still get the right primary recommendation from the current basket. When we mine light and heavy order baskets separately, Serum → Cream remains the primary category rule in both. Second prediction holds. **One order-based shelf is enough.**
 
 ---
 
-## Slide 11 — Monday morning *(0:50)*
+## Slide 11 — The ask / Monday morning *(0:55)*
 
-So the decision: mine from **order baskets**, not histories. Whenever the current basket has serum and no cream, show a cream in slot one — to **everyone**, including first-time buyers.
+Here is the decision we want you to approve.
 
-Rank cream SKUs with order-level pairs that have enough support. Fill leftover slots with what light buyers buy most — Clay Purifying Mask, Deep Clean Foam, Essence Toner, Cooling Eye Gel — not overall bestsellers.
+**Build the shelf from individual orders, not histories.** Whenever the current basket has serum and no cream, put a **cream in slot one** — for **all** buyers, including first-time.
 
-Pilot from **1 December**, fifty-fifty. First **six weeks** are a **safety check**: about **96 serum-only orders per half**; at 5% that is only about **five** extra creams — too few to prove 5% versus 2%.
+Use SKU pairs only to **rank** creams when support is strong enough. Fill leftover slots with products light buyers actually buy — mask, cleanser, toner, eye gel — so the rest of the shelf is not another heavy-buyer bestseller list.
 
-To separate those rates, continue about **40 weeks — roughly 9 months** — toward **~588 serum-only orders per half**. Success criterion: at least 5% cream add-on in treatment. That maps to about **¥2,200 extra monthly** at the low end of our scenario. Report first-time and repeat buyers separately.
+**Pilot from 1 December, fifty-fifty.** First **six weeks** are a **safety check**, not a victory lap: about **96 serum-only orders per half**; at 5% that is only about **five** extra creams — enough to spot failure, **not** enough to prove 5% beats 2%.
 
-Kill switch: drop if under 2% and no better than control; if light or first-time buyers are left behind; or if control re-mining shows same-order lift at or below one.
+To separate those rates with confidence, keep the split about **40 weeks — roughly nine months** — toward **~588 serum-only orders per half**. Success criterion: **at least 5% cream add-on** in treatment — the low end of our revenue scenario, about **¥2,200 extra per month**. Report first-time and repeat buyers separately so a good average cannot hide a bad new-buyer result.
+
+**Kill switch — please vote this in with the idea:** drop if add-on stays under **2%** and no better than control; if light or first-time buyers are left behind; or if re-mining the control half shows same-order lift at or below **1**.
 
 ---
 
 ## Slide 12 — Limits *(0:25)*
 
-Association is not causation. The yuan figure is a scenario. Six weeks cannot prove 5% versus 2%. Light-buyer SKU ranks are thin — we trust the category rule more.
+We will not oversell.
 
-A live shelf can create the pairs it later mines — that is why we re-mine the control half.
+Past co-purchases do not prove the shelf will cause the next cream. The yuan figure is a **scenario**. Six weeks cannot prove 5% versus 2%. Light-buyer SKU ranks are thinner than the category rule — that is why cream-after-serum is the primary bet.
+
+And once live, a shelf can create the pairs it later mines — so we re-mine on the **control** half. That is how we protect the vote from circular evidence.
 
 ---
 
-## Slide 13 — Close *(0:25)*
+## Slide 13 — Close / the vote *(0:25)*
 
-Show a cream after a serum. Build the shelf from **orders**, not histories.
+So the ask is simple.
 
-One shelf for everyone — including people with no history.
+**Approve** an order-based shelf that shows a **cream after serum** to everyone — including buyers with no history.  
+**Reject** history-trained “bought together” personalisation for this primary slot.  
+**Fund** a fifty-fifty pilot with a kill switch: six weeks to catch harm, longer only to measure uplift.
 
-Six weeks to catch failure; a longer split to measure uplift. Drop it if the kill conditions fire.
+Show cream after serum. Train on the checkout, not the biography. That is the shelf we are asking you to vote for.
 
 Thank you — we are happy to take questions.
 
 ---
 
-## Slide 14 — Ethics appendix *(≤0:15 if time)*
+## Slide 14 — Ethics *(≤0:15 if early)*
 
-*[Skip speech if already past 7:10; leave for Q&A.]*
+*[Skip if past 7:10.]*
 
-Appendix A1 in one line: a history shelf would serve **301 light buyers** a catalogue built **92.9%** from heavy-buyer evidence. Order rules need only the current basket; do not label cross-visit substitutes as “bought together.”
+One governance line: a history shelf would serve **301 light buyers** a catalogue built **92.9%** from heavy-buyer evidence. Order rules need only the current basket. Do not label cross-visit substitutes as “bought together.”
 
 ---
 
-## Backup Q&A (not in the 7 minutes)
+## Investor Q&A backups
 
-- **Why not 2% support on orders?** Largest pair support was 0.79% — zero product rules. We used 0.4% (≥14 orders).
-- **Why segments by orders, not spend?** The question is frequency dominance of rule evidence.
-- **Who uses the feature?** Post-purchase after every order (647 buyers / 3,401 orders); Serum→Cream especially addresses ~127 serum-only orders/month.
-- **AI use?** Appendix A2 — Claude and Cursor helped drafting and tooling; every cell re-run; team owns every number.
+- **Why not personalise from day one?** First-order lift is already 1.80; history personalisation is where the bias sits.  
+- **Is ¥2.2–6.6k worth it?** It is modest GMV — the point is a low-complexity test with a kill switch, not a moonshot.  
+- **Why 40 weeks?** Sample size to tell 5% from 2% at ~588 serum-only orders per half — honesty, not delay for its own sake.  
+- **What kills the project?** &lt;2% and no better than control; light/first-time lag; control lift ≤1.
