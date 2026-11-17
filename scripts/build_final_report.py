@@ -777,7 +777,5 @@ if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
     docx = OUT / "NMTA_T05_report.docx"
     build(docx)
-    shutil.copy2(docx, OUT / "project_report.docx")
     to_pdf(docx, OUT / "NMTA_T05_report.pdf")
-    shutil.copy2(OUT / "NMTA_T05_report.pdf", OUT / "Team5_Q15_report.pdf")
     print("done")

@@ -14,7 +14,6 @@ from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT_PPTX = ROOT / "deliverables" / "Team5_Q15_pitch.pptx"
 OUT_SUBMIT = ROOT / "deliverables" / "NMTA_T05_slides.pptx"
 FIG = ROOT / "figures"
 
@@ -414,10 +413,9 @@ def build():
     )
     add_footer(slide, prs, 14)
 
-    OUT_PPTX.parent.mkdir(exist_ok=True)
-    prs.save(str(OUT_PPTX))
-    shutil.copy2(OUT_PPTX, OUT_SUBMIT)
-    print("wrote", OUT_PPTX)
+    OUT_SUBMIT.parent.mkdir(exist_ok=True)
+    # Professor submission name only (no Team5_Q15_pitch.pptx duplicate)
+    prs.save(str(OUT_SUBMIT))
     print("wrote", OUT_SUBMIT)
 
     # Export PDF via LibreOffice
