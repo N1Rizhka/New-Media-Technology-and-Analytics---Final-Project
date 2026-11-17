@@ -110,9 +110,10 @@ def build(path: Path):
     add_para(
         doc,
         "After completing a purchase in Lumen Beauty’s Douyin mini-program, customers are shown a "
-        "“you may also like” shelf intended to encourage additional purchases. The brand founder and "
-        "e-commerce merchandising team must decide which products to recommend and whether the same "
-        "recommendations should be displayed to all customers or adapted to different buyer groups. The "
+        "“you may also like” shelf intended to encourage additional purchases. In the observation window "
+        "this shelf would be shown after every completed order: 3,401 orders from 647 buyers. The brand "
+        "founder and e-commerce merchandising team must decide which products to recommend and whether the "
+        "same recommendations should be displayed to all customers or adapted to different buyer groups. The "
         "challenge is to identify product relationships that are relevant to the moment of purchase while "
         "ensuring that recommendations reflect the broader customer base rather than primarily the behavior "
         "of frequent buyers.",
@@ -121,21 +122,23 @@ def build(path: Path):
         doc,
         "The commercial opportunity lies in encouraging customers to add complementary products to their "
         "existing orders. Serum and cream provide a particularly relevant example, as many customers "
-        "purchase serum without adding cream to the same transaction. If the recommendation shelf persuaded "
-        "5–15% of these customers to purchase an additional cream, assuming an average cream line value of "
-        "¥346.52, the estimated additional revenue would amount to ¥2,206–6,619 per month, equivalent to "
-        "approximately 0.6–1.7% of monthly gross merchandise value (GMV). These figures represent a potential "
-        "business scenario, not a measured sales effect.",
+        "purchase serum without adding cream to the same transaction (about 127 such serum-only orders per "
+        "month). If the recommendation shelf persuaded 5–15% of these customers to purchase an additional "
+        "cream, assuming an average cream line value of ¥346.52, the estimated additional revenue would amount "
+        "to ¥2,206–6,619 per month, equivalent to approximately 0.6–1.7% of monthly gross merchandise value "
+        "(GMV). These figures represent a potential business scenario, not a measured sales effect.",
     )
     add_para(
         doc,
         "However, the customer base is characterized by substantial differences in purchasing frequency. "
         "Frequent buyers generate a disproportionately large share of transactions, while occasional buyers "
         "account for a considerable proportion of customers. Consequently, recommendations derived from "
-        "complete purchasing histories may primarily reflect the preferences of frequent buyers. This creates "
-        "a potential targeting problem: a shelf intended for everyone could be shaped by the behaviour of a "
-        "relatively small, highly active customer segment, making its recommendations less representative of "
-        "first-time and occasional buyers.",
+        "complete purchasing histories may primarily reflect the preferences of frequent buyers. Concretely, "
+        "a history-trained shelf would still be shown to 301 light buyers (46.5% of customers), yet only about "
+        "1.7% of the evidence behind those history-based rules would come from their own behaviour. This "
+        "creates a potential targeting problem: a shelf intended for everyone could be shaped by the behaviour "
+        "of a relatively small, highly active customer segment, making its recommendations less representative "
+        "of first-time and occasional buyers.",
     )
     add_para(
         doc,
@@ -178,8 +181,8 @@ def build(path: Path):
         "customers belong to the light-buyer segment. In this case, the behavior of the 301 light buyers would "
         "contribute only 1.7% of the evidence behind the history-based rules. The potential targeting problem is "
         "therefore not simply that some customers purchase more often than others. It is that recommendations "
-        "intended for the entire customer base could be determined largely by the purchasing behavior of a relatively "
-        "small group of highly active customers.",
+        "intended for the entire customer base could be determined largely by the purchasing behavior of 41% of "
+        "the customers.",
     )
     add_para(
         doc,
@@ -342,7 +345,7 @@ def build(path: Path):
         "with cream being a relevant recommendation after serum. This relationship is expected to remain visible "
         "across buyer segments, sales channels and first orders (T2). The potential algorithmic bias resulting from a "
         "history-based recommendation system is treated as an ethical implication of the findings and discussed in "
-        "§6; it is not used to explain the observed product association.",
+        "Appendix A1; it is not used to explain the observed product association.",
     )
     add_para(
         doc,
@@ -559,17 +562,6 @@ def build(path: Path):
         "separate shelf for every customer segment. It is which purchasing evidence should determine the "
         "recommendations in the first place.",
     )
-    add_para(
-        doc,
-        "Compared with the project plan dated 20 October, the analysis leads to three important refinements. The first "
-        "is the distinction between order baskets and customer-history baskets, which changes the unit of analysis to "
-        "match the moment when the recommendation shelf appears. The second is the use of purchasing frequency rather "
-        "than the high_value spending classification to define customer segments, because the research question "
-        "concerns the influence of frequent buyers on the recommendation rules. The third is the adjustment of the "
-        "support thresholds after the originally proposed 2% product-level threshold returned no usable order-based "
-        "product rules. These refinements make the analysis more closely aligned with the actual merchandising decision.",
-    )
-
     # -------- 5 --------
     doc.add_heading("5. Recommendation", level=1)
     add_para(
@@ -590,9 +582,9 @@ def build(path: Path):
         "27 co-purchasing orders respectively. They should therefore determine the ranking of cream products rather "
         "than replace the more robust category-level Serum → Cream recommendation. For the remaining recommendation "
         "positions, Lumen Beauty should use the products most frequently purchased by light buyers: Clay Purifying "
-        "Mask, Deep Clean Foam, Essence Toner and Cooling Eye Gel, as identified in notebook section 10e. This would "
-        "prevent the remaining shelf positions from simply reflecting overall bestseller volume, which is heavily "
-        "influenced by heavy buyers.",
+        "Mask, Deep Clean Foam, Essence Toner and Cooling Eye Gel, see Figure 8. This would prevent the remaining "
+        "shelf positions from simply reflecting overall bestseller volume, which is heavily influenced by heavy "
+        "buyers.",
     )
     add_figure(doc, FIG / "fig_light_buyer_slots.png")
     add_caption(
@@ -641,21 +633,22 @@ def build(path: Path):
         "buyers should be shown the new recommendation shelf, while the other half continue to see the current shelf. "
         "This 50/50 split provides a comparison between the proposed recommendation and the existing experience. "
         "During the first six weeks, each half is expected to encounter approximately 96 serum-only orders. If the new "
-        "shelf generates a 5% add-on rate during this period, this would correspond to approximately five additional "
-        "cream purchases. Such a small number of observations can help identify whether the recommendation is failing "
-        "or whether light and first-time buyers are being left behind, but it is not sufficient to demonstrate "
-        "reliably that a 5% add-on rate is different from a 2% rate.",
+        "shelf generates a 5% add-on rate during this period, that would correspond to only about five additional cream "
+        "purchases. Such a small number of observations can help identify whether the recommendation is failing or "
+        "whether light and first-time buyers are being left behind, but it is not sufficient to demonstrate reliably "
+        "that a 5% add-on rate differs from a 2% rate.",
     )
     add_para(
         doc,
         "For this reason, the six-week period should be treated as a safety check rather than the final evaluation of "
         "commercial performance. To distinguish a 5% add-on rate from a 2% rate with greater confidence, the experiment "
         "should continue for approximately 40 weeks (about 9 months), during which each half is expected to accumulate "
-        "around 588 serum-only orders. After this longer evaluation period, the expected result would be that at least "
-        "5% of serum-only orders in the treatment group include an additional cream purchase. At the lower end of the "
-        "estimated revenue scenario, this would correspond to approximately ¥2,200 in additional monthly revenue. "
-        "Results should be reported separately for first-time and repeat buyers so that an apparently positive overall "
-        "result does not conceal weaker performance among customers with little or no purchasing history.",
+        "around 588 serum-only orders. After this longer evaluation period, the success criterion would be that at "
+        "least 5% of serum-only orders in the treatment group include an additional cream purchase. At the lower end "
+        "of the revenue scenario estimated earlier in this report, that add-on rate would correspond to approximately "
+        "¥2,200 in additional monthly revenue. Results should be reported separately for first-time and repeat buyers "
+        "so that an apparently positive overall result does not conceal weaker performance among customers with little "
+        "or no purchasing history.",
     )
     add_para(
         doc,
@@ -694,8 +687,8 @@ def build(path: Path):
         "sufficient evidence.",
     )
 
-    # -------- 6 --------
-    doc.add_heading("6. Ethics & compliance implications", level=1)
+    # -------- Appendix A1 --------
+    doc.add_heading("Appendix A1 — Ethics & compliance implications", level=1)
     add_para(
         doc,
         "Stake. A history-trained shelf draws 92.9% of its pair evidence from heavy buyers, so 301 light buyers "
@@ -724,8 +717,8 @@ def build(path: Path):
         "rates by buyer type, and drop under the conditions in §5.",
     )
 
-    # -------- 7 --------
-    doc.add_heading("7. Artificial intelligence (AI) use appendix", level=1)
+    # -------- Appendix A2 --------
+    doc.add_heading("Appendix A2 — Artificial intelligence (AI) use appendix", level=1)
     add_para(
         doc,
         "Claude (Anthropic). Helped draft early notebook structure from Week 2 / Week 3 course patterns, proposed "
